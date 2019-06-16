@@ -1,5 +1,7 @@
 /*Reto 2 de Técnicas de Programación, Jose Luis Marín Arango*/
 
+import jdk.nashorn.internal.scripts.JO;
+
 import javax.swing.*;
 import  java.util.Scanner;
 public class Reto2 {
@@ -7,7 +9,7 @@ public class Reto2 {
         int choice;
 
         choice = 1;
-        while(choice > 0 && choice < 5) {
+        while(choice > 0 && choice <= 5) {
             choice = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese a continuación:\n" +
                     "1. Primer punto del Reto\n" +
                     "2. Segundo punto del Reto\n" +
@@ -89,10 +91,76 @@ public class Reto2 {
     }
 
     public static void ResolverCuartoPunto(){
+        int amount, oneHBill, fiftyBill, twentyBill, tenBill, fiveBill, twoBill;
+        fiftyBill = 0;
+        oneHBill = 0;
+        twentyBill = 0;
+        tenBill = 0;
+        fiveBill = 0;
+        twoBill = 0;
+
+        //Recibe el monto y elimina los tres ceros que el gobierno no ha eliminado para simplicidad del cálculo.
+        amount = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese el monto a retirar" +
+                "(múltiplos de $2000): $"))/1000;
+        //Validación Req. No funcional.
+        if (amount % 2 == 0){
+            if (amount >= 100){
+                oneHBill = amount / 100;
+                amount %= 100;//Actualice el monto a cangear por billetes de otra denominación.
+            }
+            if (amount >= 50){
+                fiftyBill = amount / 50;
+                amount %= 50;
+            }
+            if (amount >= 20){
+                twentyBill = amount / 20;
+                amount %= 20;
+            }
+            if (amount >= 10){
+                tenBill = amount / 10;
+                amount %= 10;
+            }
+            if (amount > 0){
+                twoBill = amount / 2;
+                amount %= 2;
+            }
+
+            JOptionPane.showMessageDialog(null,"Billetes de 100 mil: " + oneHBill
+                    + "\nBilletes de 50 mil: " + fiftyBill
+                    + "\nBilletes de 20 mil: " + twentyBill
+                    + "\nBilletes de 10 mil: " + tenBill
+                    + "\nBileltes de 5 mil: " + fiveBill
+                    +"\nBilletes de 2 mil: " + twoBill);
+        }else JOptionPane.showMessageDialog(null,"Sólo se permiten múltiplos de $2000");
 
     }
 
     public static void ResolverQuintoPunto(){
+        long M, N, combinations, num, den;
+        num = 1;
+        den = 1;
+        M = Integer.parseInt(JOptionPane.showInputDialog(null,
+                "Ingrese el numero M de elementos(M>0): "));
+        if(M < 1){
+            JOptionPane.showMessageDialog(null,"El número de elementos debe ser mayor a 0");
+        }else {
+            N = Integer.parseInt(JOptionPane.showInputDialog(null,
+                    "Tomados de(N>0): "));
+            if(N < 1){
+                JOptionPane.showMessageDialog(null,"El número de elementos debe ser mayor a 0");
+            }else{
+                for (long i = M; i > N; i--){
+                    num *= i;
+                }
+                if (M != N){
+                    for(long j = M - N; j > 0; j--){
+                        den *= j;
+                    }
+                }
+                combinations = num / den;
+                JOptionPane.showMessageDialog(null,"El número de combinaciones es: " + combinations);
+            }
+        }
 
     }
 
